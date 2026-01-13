@@ -1,6 +1,2 @@
-Neste desafio devemos criar um método no nosso RestauranteController para atualizar recursos de Restaurantes.
-Isso será feito por meio do método PUT.
-
-Devemos retornar 404 caso o recurso não exista, 400 caso o corpo da requisição possua algum problema
-(devemos também retornar uma mensagem descrevendo o problema da requisição) e 200 caso o recurso seja atualizado
-com sucesso.
+Neste desafio devemos implementar os controllers e classes de serviço de cadastro para nossas cidades e estados,
+devemos também ajustar nosso repositório.

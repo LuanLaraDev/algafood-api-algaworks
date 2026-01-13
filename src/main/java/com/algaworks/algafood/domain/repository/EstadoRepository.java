@@ -13,6 +13,6 @@ public interface EstadoRepository {
 
     Estado buscar(Long id);
 
-    void remover(Estado estado);
+    void remover(Long estadoId);
 
 }
