@@ -1,10 +1,1 @@
-Nesta aula estamos continuando a anterior e implementando a atualização parcial do recurso de Restaurante.
-
-Nesta aula utilizamos da Reflection API para obter e atualizar as propriedades recebidas dinamicamente.
-
-Para isso usamos o ObjectMapper para mapear o nosso Map que contém as propriedades recebidas para instanciar um
-novo Restaurante. Devemos fazer isso para facilitar o casting dos parâmetros e não termos que fazer isso manualmente.
-
-O passo seguinte é pegar as propriedades da nova instância de Restaurante e passar para a instância persistida e apenas
-vamos passar as propriedades que foram informadas no corpo da requisição, assim não atualizando campos
-que não foram informados.
+Este commit marca o começo do módulo de super poderes do Spring Data JPA
