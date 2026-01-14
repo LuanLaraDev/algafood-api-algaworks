@@ -1,9 +1,10 @@
-Podemos também ter a necessidade de alterar um recurso parcialmente, fazemos isso por meio do método HTTP Patch
+Nesta aula estamos continuando a anterior e implementando a atualização parcial do recurso de Restaurante.
 
-Iremos criar uma implementação para o resource de Restaurante.
+Nesta aula utilizamos da Reflection API para obter e atualizar as propriedades recebidas dinamicamente.
 
-Primeiramente iremos criar o método "atualizarParcial", que irá receber o restauranteId e um Map com os valores
-passados no corpo da requisição.
+Para isso usamos o ObjectMapper para mapear o nosso Map que contém as propriedades recebidas para instanciar um
+novo Restaurante. Devemos fazer isso para facilitar o casting dos parâmetros e não termos que fazer isso manualmente.
 
-Na próxima aula prosseguiremos com a criação do método, onde utilizaremos da Reflection API para atualizar os valores
-do resource.
+O passo seguinte é pegar as propriedades da nova instância de Restaurante e passar para a instância persistida e apenas
+vamos passar as propriedades que foram informadas no corpo da requisição, assim não atualizando campos
+que não foram informados.
