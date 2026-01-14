@@ -1,2 +1,9 @@
-Neste desafio devemos implementar os controllers e classes de serviço de cadastro para nossas cidades e estados,
-devemos também ajustar nosso repositório.
+Podemos também ter a necessidade de alterar um recurso parcialmente, fazemos isso por meio do método HTTP Patch
+
+Iremos criar uma implementação para o resource de Restaurante.
+
+Primeiramente iremos criar o método "atualizarParcial", que irá receber o restauranteId e um Map com os valores
+passados no corpo da requisição.
+
+Na próxima aula prosseguiremos com a criação do método, onde utilizaremos da Reflection API para atualizar os valores
+do resource.

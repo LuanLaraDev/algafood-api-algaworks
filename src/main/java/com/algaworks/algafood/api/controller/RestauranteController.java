@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -68,6 +69,24 @@ public class RestauranteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @PatchMapping("/{restauranteId}")
+    public ResponseEntity<?> atualizarParcial(
+            @PathVariable Long restauranteId, @RequestBody Map<String, Object> campos) {
+
+        Restaurante restauranteAtual = restauranteRepository.buscar(restauranteId);
+        if (restauranteAtual == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        merge(campos, restauranteAtual);
+
+        return atualizar(restauranteAtual, restauranteId);
+    }
+
+    private void merge(Map<String, Object> campos, Restaurante restauranteDestino) {
+        campos.forEach((nomePropriedade, valorPropriedade) -> System.out.println(nomePropriedade + " = " + valorPropriedade));
     }
 
 }
