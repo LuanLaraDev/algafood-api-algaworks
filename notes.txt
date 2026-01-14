@@ -1,1 +1,9 @@
-Este commit marca o começo do módulo de super poderes do Spring Data JPA
+Nesta aula implementamos uma consulta utilizando JPQL, onde a consulta por nome de Cozinha retorna uma lista de
+cozinhas com o nome correspondente.
+
+Para isso adicionamos o método na interface o na implementação do repositório de cozinhas. Criamos também um novo
+controller "TesteController", este apenas para fim de testes
+
+Vale notar que alteramos a anotação que estava no nosso CozinhaRepository de muitas aulas anteriores, onde ao invés de
+usarmos a anotação @Component passamos a usar a anotação @Repository, pois é mais adequada semanticamente além de
+traduzir exceções mais genéricas para exceções mais específicas.
