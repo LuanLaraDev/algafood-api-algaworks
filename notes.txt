@@ -1,9 +1,14 @@
-Nesta aula implementamos uma consulta utilizando JPQL, onde a consulta por nome de Cozinha retorna uma lista de
-cozinhas com o nome correspondente.
+Caso nosso projeto não tivesse a dependência do Spring Data JPA, teriamos de adiciona-la, porém, nosso projeto já possui
+a dependência spring-boot-starter-data-jpa que a inclui.
 
-Para isso adicionamos o método na interface o na implementação do repositório de cozinhas. Criamos também um novo
-controller "TesteController", este apenas para fim de testes
+Faremos diversas alterações, a primeira delas será excluir a classe de implementação do repository CozinhaRepositoryImpl
+pois deixaremos que o Spring Data gere o código. Para isso fazemos com que a interface CozinhaRespository possua a
+anotação @Repository e extenda a classe JpaRepository<Cozinha, Long>.
 
-Vale notar que alteramos a anotação que estava no nosso CozinhaRepository de muitas aulas anteriores, onde ao invés de
-usarmos a anotação @Component passamos a usar a anotação @Repository, pois é mais adequada semanticamente além de
-traduzir exceções mais genéricas para exceções mais específicas.
+Após isso faremos os ajustes para nossos controllers e classes de serviço usem os métodos fornecidos pela implementação
+de JpaRepository.
+
+OBS: Na versão 3 do spring boot a exceção EmptyResultDataAccessException não é mais lançada ao tentar deletar
+um recurso via método deleteById(), portanto alteramos o método Excluir da nossa classe CadastroCozinhaService
+para tornar o código compatível com a versão 3 do Spring, verificando se o recurso existe via método existsById() e
+lançando uma exceção caso não exista.
