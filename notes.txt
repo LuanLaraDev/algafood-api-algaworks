@@ -1,4 +1,11 @@
-Nesta aula vamos utilizar as keywords na assinatura do método para que possamos criar consultas mais refinadas.
+Podemos realizar buscas utilizando o prefixo find, que é o que já estamos utlizando em outras aulas, porém também
+podemos utlizar outros prefixos intercambiáveis ao find, sendo eles:
 
-Nesta documentação é possível encontrar as keywords dos query methods
-https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
+find, read, get, query, stream
+
+Outros prefixos que usamos são:
+
+exists (para saber se um recurso existe)
+count (para saber quantos recursos cumprem determinado critério)
+
+Nós podemos também adicionar uma flag logo após o prefixo, por exemplo, findFirst, findTop2...

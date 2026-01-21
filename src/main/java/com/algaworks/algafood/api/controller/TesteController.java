@@ -24,22 +24,43 @@ public class TesteController {
     private RestauranteRepository restauranteRepository;
 
     @GetMapping("/cozinhas/por-nome")
-    private List<Cozinha> cozinhasPorNome(String nome) {
+    public List<Cozinha> cozinhasPorNome(String nome) {
         return cozinhaRepository.findTodasByNomeContaining(nome);
     }
 
     @GetMapping("/cozinhas/unica-por-nome")
-    private Optional<Cozinha> cozinhaPorNome(String nome) {
+    public Optional<Cozinha> cozinhaPorNome(String nome) {
         return cozinhaRepository.findByNome(nome);
     }
 
+    @GetMapping("cozinhas/exists")
+    public boolean cozinhaExists(String nome) {
+        return cozinhaRepository.existsByNome(nome);
+    }
+
     @GetMapping("/restaurantes/por-taxa-frete")
-    private List<Restaurante> restaurantesPorTaxaFrete(BigDecimal taxaInicial, BigDecimal taxaFinal) {
-        return restauranteRepository.findByTaxaFreteBetween(taxaInicial, taxaFinal);
+    public List<Restaurante> restaurantesPorTaxaFrete(BigDecimal taxaInicial, BigDecimal taxaFinal) {
+        return restauranteRepository.queryByTaxaFreteBetween(taxaInicial, taxaFinal);
     }
 
     @GetMapping("/restaurantes/por-nome")
-    private List<Restaurante> restaurantesPorNome(String nome, Long cozinhaId) {
+    public List<Restaurante> restaurantesPorNome(String nome, Long cozinhaId) {
         return restauranteRepository.findByNomeContainingAndCozinhaId(nome, cozinhaId);
     }
+
+    @GetMapping("/restaurantes/primeiro-por-nome")
+    public Optional<Restaurante> restaurantePrimeiroPorNome(String nome) {
+        return restauranteRepository.findFirstRestauranteByNomeContaining(nome);
+    }
+
+    @GetMapping("/restaurantes/top2-por-nome")
+    public List<Restaurante> restauranteTop2PorNome(String nome) {
+        return restauranteRepository.findTop2ByNomeContaining(nome);
+    }
+
+    @GetMapping("/restaurantes/count-por-cozinha")
+    public int restauranteCountPorCozinha(Long cozinhaId) {
+        return restauranteRepository.countByCozinhaId(cozinhaId);
+    }
+
 }
