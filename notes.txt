@@ -1,11 +1,4 @@
-Podemos realizar buscas utilizando o prefixo find, que é o que já estamos utlizando em outras aulas, porém também
-podemos utlizar outros prefixos intercambiáveis ao find, sendo eles:
+Podemos também, ao invés de usar query methods, utilizar a anotação @Query e definir a query que será realizada pelo
+método.
 
-find, read, get, query, stream
-
-Outros prefixos que usamos são:
-
-exists (para saber se um recurso existe)
-count (para saber quantos recursos cumprem determinado critério)
-
-Nós podemos também adicionar uma flag logo após o prefixo, por exemplo, findFirst, findTop2...
+Desta forma, podemos melhorar a legibilidade dos métodos quando necessário e tembém realizar consultas mais complexas.
