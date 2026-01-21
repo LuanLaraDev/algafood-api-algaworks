@@ -1,2 +1,4 @@
-Podemos utilizar de querry methods para criar consultas ao banco. A ideia é que a própria assinatura do
-método (na interface) informe a consulta a ser realizada.
+Nesta aula vamos utilizar as keywords na assinatura do método para que possamos criar consultas mais refinadas.
+
+Nesta documentação é possível encontrar as keywords dos query methods
+https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html
