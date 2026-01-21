@@ -1,0 +1,2 @@
+Podemos utilizar de querry methods para criar consultas ao banco. A ideia é que a própria assinatura do
+método (na interface) informe a consulta a ser realizada.
