@@ -1,10 +1,6 @@
-Podemos criar um repositório SDJ customizado. Quando precisamos realizar uma consulta e ao mesmo tempo usar código java
-no método, criamos este repositório.
+Podemos criar consultas dinâmicas utlizando JPQL, para isso, verificamos quais parâmetros foram recebidos na
+requisição e realizamos appends com base neles, além disso criamos um HashMap com os parâmetros e seus valores para
+realizar um binding dos valores ao JPQL dinâmicamente.
 
-Basta criar um repositório com o mesmo nome da interface com o sufixo Impl. Exemplo:
-RestauranteRepositório -> RestauranteRepositórioImpl
-
-A partir disso, o SDJ sabe que essa é uma classe de implementação customizada. Porém, não há um vínculo dentro do java,
-o que pode gerar problemas ao alterar algo no método customizado e estas mudanças não serem refletidas nos pontos onde
-estes métodos são utilizados. Para resolver isso criamos uma interface que terá a assinatura dos métodos customizados,
-e faremos com que a classe de implementação e a interface do repositório sejam vinculadas.
+OBS: from Restaurante where 0 = 0 serve para podermos fazer o append por meio do and e para que possamos retornar
+todos os recursos caso não informado nenhum parâmetro.
