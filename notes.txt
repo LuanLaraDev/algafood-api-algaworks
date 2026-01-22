@@ -1,14 +1,10 @@
-Podemos também, ao invés de usar a anotação @Query, criar um arquivo de nome orm.xml dentro de META-INF
-dentro de resources. Fazemos isso para quando temos consultas que teriam muitas linhas ou simplesmente organizar as
-queries.
+Podemos criar um repositório SDJ customizado. Quando precisamos realizar uma consulta e ao mesmo tempo usar código java
+no método, criamos este repositório.
 
-A seguir temos a base do arquivo orm.xml, basta copiar e colar.
+Basta criar um repositório com o mesmo nome da interface com o sufixo Impl. Exemplo:
+RestauranteRepositório -> RestauranteRepositórioImpl
 
-<?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
-    version="2.2">
-
-</entity-mappings>
+A partir disso, o SDJ sabe que essa é uma classe de implementação customizada. Porém, não há um vínculo dentro do java,
+o que pode gerar problemas ao alterar algo no método customizado e estas mudanças não serem refletidas nos pontos onde
+estes métodos são utilizados. Para resolver isso criamos uma interface que terá a assinatura dos métodos customizados,
+e faremos com que a classe de implementação e a interface do repositório sejam vinculadas.
