@@ -1,4 +1,14 @@
-Podemos também, ao invés de usar query methods, utilizar a anotação @Query e definir a query que será realizada pelo
-método.
+Podemos também, ao invés de usar a anotação @Query, criar um arquivo de nome orm.xml dentro de META-INF
+dentro de resources. Fazemos isso para quando temos consultas que teriam muitas linhas ou simplesmente organizar as
+queries.
 
-Desta forma, podemos melhorar a legibilidade dos métodos quando necessário e tembém realizar consultas mais complexas.
+A seguir temos a base do arquivo orm.xml, basta copiar e colar.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+    version="2.2">
+
+</entity-mappings>
