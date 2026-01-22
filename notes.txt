@@ -1,4 +1,5 @@
-Criteria API é uma API muito poderosa para criação de queries de forma programática, apesar de muito burocrática.
-Muito útil para consultas complexas e dinâmicas que são difícies de serem realizadas com JPQL.
+Nesta aula vamos adicionar a cláusula where na nossa consulta com criteria API.
 
-Nesta aula criaremos uma consulta simples utilizando Criteria API e em aulas posteriores à tornaremos mais complexa.
+A cláusula where recebe predicates. As instâncias de predicate são criadas por meio da instância de CriteriaBuilder.
+
+Vide a classe RestauranteRepositoryImpl para melhor entendimento.
