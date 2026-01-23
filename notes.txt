@@ -1,2 +1,3 @@
-Para tornarmos nossos filtros dinâmicos, podemos criar um ArrayList<Predicate> que irá receber apenas os predicates de
-parâmetros que tenham sido informados como parâmetro da requisição.
+No padrão Specification, criamos classes de especificação, estas classes servem como filtros para nossa consulta.
+Podemos ver como seria isso na classe TesteController, apesar de ainda não haver implementação, é uma exemplificação
+do que seria feito.

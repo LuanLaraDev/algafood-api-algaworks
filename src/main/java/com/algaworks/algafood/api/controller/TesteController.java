@@ -63,9 +63,12 @@ public class TesteController {
         return restauranteRepository.countByCozinhaId(cozinhaId);
     }
 
-    @GetMapping("/restaurantes/por-nome-e-frete")
-    public List<Restaurante> restaurantesPorNomeFrete(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
-        return restauranteRepository.find(nome, taxaFreteInicial, taxaFreteFinal);
+    @GetMapping("/restaurantes/com-frete-gratis") //Sim, este código está quebrado temporariamente
+    public List<Restaurante> restaurantesComFreteGratis(String nome) {
+        var comFreteGratis = new RestauranteComFreteGratisSpec();
+        var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
+
+        return restauranteRepository.findAll();
     }
 
 }
