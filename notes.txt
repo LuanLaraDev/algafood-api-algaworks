@@ -1,5 +1,2 @@
-Nesta aula vamos adicionar a cláusula where na nossa consulta com criteria API.
-
-A cláusula where recebe predicates. As instâncias de predicate são criadas por meio da instância de CriteriaBuilder.
-
-Vide a classe RestauranteRepositoryImpl para melhor entendimento.
+Para tornarmos nossos filtros dinâmicos, podemos criar um ArrayList<Predicate> que irá receber apenas os predicates de
+parâmetros que tenham sido informados como parâmetro da requisição.

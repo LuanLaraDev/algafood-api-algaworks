@@ -3,6 +3,7 @@ package com.algaworks.algafood.infrastructure.repository;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepositoryQueries;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,20 +25,28 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
     @Override
     public List<Restaurante> find(String nome, BigDecimal taxaFreteInicial, BigDecimal taxaFreteFinal) {
 
-        CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+        var criteriaBuilder = manager.getCriteriaBuilder();
 
-        CriteriaQuery<Restaurante> criteriaQuery = criteriaBuilder.createQuery(Restaurante.class);
-        Root<Restaurante> root = criteriaQuery.from(Restaurante.class); //from Restaurante
+        var criteriaQuery = criteriaBuilder.createQuery(Restaurante.class);
+        var root = criteriaQuery.from(Restaurante.class); //from Restaurante
 
-        Predicate nomePredicate = criteriaBuilder.like(root.get("nome"), "%" + nome +"%");
+        var predicates = new ArrayList<Predicate>();
 
-        Predicate taxaInicialPredicate = criteriaBuilder.greaterThan(root.get("taxaFrete"), taxaFreteInicial);
+        if (StringUtils.hasLength(nome)) {
+            predicates.add(criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
+        }
 
-        Predicate taxaFinalPredicate = criteriaBuilder.lessThan(root.get("taxaFrete"), taxaFreteFinal);
+        if (taxaFreteFinal != null) {
+            predicates.add(criteriaBuilder.greaterThan(root.get("taxaFrete"), taxaFreteInicial));
+        }
 
-        criteriaQuery.where(nomePredicate, taxaInicialPredicate, taxaFinalPredicate);
+        if (taxaFreteFinal != null) {
+            predicates.add(criteriaBuilder.lessThan(root.get("taxaFrete"), taxaFreteFinal));
+        }
 
-        TypedQuery<Restaurante> query = manager.createQuery(criteriaQuery);
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
+
+        var query = manager.createQuery(criteriaQuery);
         return query.getResultList();
 
     }
