@@ -1,7 +1,6 @@
-Nesta implementamos as Specifications com SDJ. Para criar a implementação implementamos a interface
-Specification<T> (neste caso Spectification<Restaurante>) nas classes de specification e implementamos o método
-toPredicate() (vide as classes RestauranteComFreteGratisSpec e RestauranteComNomeSemelhanteSpec).
+Para melhorar nosso código, podemos criar uma fábrica de Specifications, com essa fábrica é possível obter instâncias
+das nossas Specifications sem ser necessário crian instâncias manualmente. Para melhorar mais nosso código podemos
+utilizar de classes anônimas, onde nossa fábrica gera instâncias de Specification sem necessitar de um classe específica
+pois a interface specification é uma interface funcional e portanto podemos criar uma instância de forma anônima.
 
-Além disso precisamos fazer com que nossa interface de repositório extenda a interface JpaSpecificationExecutor<T>
-(neste caso JpaSpecificationExecutor<Restaurante>), assim os métodos serão capazes de receber as specification como
-parâmetros.
+Podemos ver como isso é feito na classe RestauranteSpecs.
