@@ -1,3 +1,7 @@
-No padrão Specification, criamos classes de especificação, estas classes servem como filtros para nossa consulta.
-Podemos ver como seria isso na classe TesteController, apesar de ainda não haver implementação, é uma exemplificação
-do que seria feito.
+Nesta implementamos as Specifications com SDJ. Para criar a implementação implementamos a interface
+Specification<T> (neste caso Spectification<Restaurante>) nas classes de specification e implementamos o método
+toPredicate() (vide as classes RestauranteComFreteGratisSpec e RestauranteComNomeSemelhanteSpec).
+
+Além disso precisamos fazer com que nossa interface de repositório extenda a interface JpaSpecificationExecutor<T>
+(neste caso JpaSpecificationExecutor<Restaurante>), assim os métodos serão capazes de receber as specification como
+parâmetros.
