@@ -1,6 +1,13 @@
-Para melhorar nosso código, podemos criar uma fábrica de Specifications, com essa fábrica é possível obter instâncias
-das nossas Specifications sem ser necessário crian instâncias manualmente. Para melhorar mais nosso código podemos
-utilizar de classes anônimas, onde nossa fábrica gera instâncias de Specification sem necessitar de um classe específica
-pois a interface specification é uma interface funcional e portanto podemos criar uma instância de forma anônima.
+Até a última aula a lógica de consulta estava em partes, localizada no controller, o que não é uma boa prática, portanto
+nesta aula iremos passar a lógica da consulta para nossa classe de implementação de repositorio.
 
-Podemos ver como isso é feito na classe RestauranteSpecs.
+Primeiramente adicionamos um método na nossa interface RestauranteRepositoryQueries, este método será responsável
+pela consulta usando specification.
+
+Nossa classe RestauranteRepositoryImpl irá implementar esse método, porém devemos lembrar que para usar as specifications
+precisamos de um método que os aceite, e temos exatamente isso na interface RestauranteRepository, então vamos injeta-la.
+
+Entretanto apenas injeta-la normalmente não funcionaria, pois RestauranteRepository depende de RestauranteRepositoryImpl
+para ser instanciada, e tentar injetar RestauranteRepository em RestauranteRepositoryImpl geraria uma referência circular
+a não ser que anotemos a injeção de RestauranteRepository junto com @Lazy, que fará com que só seja instanciada apenas
+quando necessária.
