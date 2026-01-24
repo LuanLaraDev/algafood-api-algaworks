@@ -1,10 +1,1 @@
-Para criar um repositório base customizado, podemos extender a interface base de repositorio e a classe base de
-implementação do repositório.
-
-Desta forma, todas as interfaces que herdarem a classe base customizada de repositório também terão seus métodos.
-
-Vide CustomJpaRepository e CustomJpaRepositoryImpl
-
-Anotar a classe AlgafoodApiApplication com:
-@EnableJpaRepositories(repositoryBaseClass = CustomJpaRepositoryImpl.class)
-Faz com que o repositório base seja nosso repositório customizado.
+Este commit marca o começo do módulo "Explorando mais do JPA e Hibernate"
