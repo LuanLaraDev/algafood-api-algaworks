@@ -1,12 +1,16 @@
-Para criar um mapeamento de um para muitos basta usar a anotação @OneToMany.
-No caso, vamos aplicar esse mapeamento na classe Cozinha, na variável List<Restaurantes> que criamos.
+Nesta aula criamos uma relação ManyToMany entre Restaurante e FormaPagamento, pois um restaurante poderá ter diversas
+formas de pagamento, e estas formas de pagamento podem estar relacionadas à diversos restaurantes.
+Lembrando que apesar de ser uma relação ManyToMany se trata de uma relação unidirecional, pois um restaurante possui
+formas de pagamento, mas formas de pagamento não possuem um ou mais restaurantes.
 
-Entretanto já há um mapeamento na classe Restaurante, do tipo ManyToOne para com Cozinha. Por isso vamos definir a
-propriedade mappedBy da anotação @OneToMany com a propriedade "cozinha". Isso indica que nossa lista de restaurantes
-está relacionada com nossa classe Cozinha por meio da variável cozinha na classe restaurante.
+Para criamos essa relação vamos adicionar a anotação @ManyToMany na variável List<FormaPagamento> formasPagamento que
+criamos, vamos também adicionar a anotação @JoinTable e alterar algumas propriedades dessa anotação, sendo elas o nome
+da tabela que será criada e o nome das colunas criadas, ficando da seguinte forma:
 
-Vale ressaltar também, que se não utilizarmos a anotação @JsonIgnore ou na variável cozinha da classe Restaurante ou na
-variável restaurantes da classe Cozinha, teriamos uma referência circular na hora de obter um recurso no formato Json.
+@JoinTable(name = "restaurante_forma_pagamento",
+            joinColumns = @JoinColumn(name = "restaurante_id"),
+            inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 
-Outro ponto a ressaltar é que nem sempre haverá sentido nessa associação, pois se não vamos precisar, por exemplo,
-listar todos os restaurantes de uma determinada cozinha, pode ser que não haja motivo para faze-la.
+Adicionamos também o seguinte SQL no arquivo import.sql, a fim de popular nosso banco de dados:
+
+INSERT INTO restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) VALUES (1,1), (1,2), (1,3), (2,3), (3,2), (3,3);
