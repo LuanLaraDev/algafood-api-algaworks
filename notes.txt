@@ -1,1 +1,12 @@
-Este commit marca o começo do módulo "Explorando mais do JPA e Hibernate"
+Para criar um mapeamento de um para muitos basta usar a anotação @OneToMany.
+No caso, vamos aplicar esse mapeamento na classe Cozinha, na variável List<Restaurantes> que criamos.
+
+Entretanto já há um mapeamento na classe Restaurante, do tipo ManyToOne para com Cozinha. Por isso vamos definir a
+propriedade mappedBy da anotação @OneToMany com a propriedade "cozinha". Isso indica que nossa lista de restaurantes
+está relacionada com nossa classe Cozinha por meio da variável cozinha na classe restaurante.
+
+Vale ressaltar também, que se não utilizarmos a anotação @JsonIgnore ou na variável cozinha da classe Restaurante ou na
+variável restaurantes da classe Cozinha, teriamos uma referência circular na hora de obter um recurso no formato Json.
+
+Outro ponto a ressaltar é que nem sempre haverá sentido nessa associação, pois se não vamos precisar, por exemplo,
+listar todos os restaurantes de uma determinada cozinha, pode ser que não haja motivo para faze-la.
