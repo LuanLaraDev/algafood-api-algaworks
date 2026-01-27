@@ -1,7 +1,3 @@
-Por vezes precisamos componentizar nossas classe, ou seja, separar em dois ou mais componentes.
-Entretanto, pode ser importante manter esses componentes em uma mesma tabela, para isso fazemos o mapeamento de classes
-incorporáveis.
-
-No nosso caso vamos aplicar isso no relacionamento entre as classes Restaurante e Endereco. Para isso vamos anotar a
-classe Endereco com @Embeddable e a variável endereco em Restaurante vamos anotar com @Embedded.
-Também, definimos os nomes das colunas das variáveis de Endereco.
+Como não queremos exibir o endereço de um restaurante na nossa API, anotamos a variável endereco com @JsonIgnore. Também
+queremos que o endereço não seja atualizado por uma requisição do tipo PUT, por tanto, definimos no nosso controller que
+essa é uma propriedade que não será atualizada.
