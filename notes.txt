@@ -1,13 +1,7 @@
-Um ponto que deve ser restaltado quando fazemos uma alteração no nosso modelo de domínio é que da forma que estamos
-modelando nossa API, qualquer alteração no modelo de domínio pode alterar nossa representação do recurso na API. O ideal,
-porém mais trabalhoso, seria separarmos o modelo de domínio do modelo de representação de recurso, isso será feito em
-uma aula mais adiante.
+Por vezes precisamos componentizar nossas classe, ou seja, separar em dois ou mais componentes.
+Entretanto, pode ser importante manter esses componentes em uma mesma tabela, para isso fazemos o mapeamento de classes
+incorporáveis.
 
-Outro ponto é que ao fazermos a relação ManyToMany de Restaurante com FormaPagamento, toda vez que consultamos um recurso
-de restaurante temos os meios de pagamento junto, isso pode gerar uma carga desnecessária para o servidor (no caso de
-um singleton resource não há grandes problemas, porém para um collection resource pode ser que sim), portanto,
-vamos anotar a variável formasPagamento com @JsonIgnore. Em aulas mais a frente verêmos como ficará com a separação do
-modelo de representação de recurso.
-
-Outro ponto é que ao atualizar um recurso, podemos querer que as formas de pagamento não sejam atualizadas, definimos
-isso como um dos parâmetros de ignoreProperties de BeanUtils.copyProperties() no nosso controller de Restaurantes.
+No nosso caso vamos aplicar isso no relacionamento entre as classes Restaurante e Endereco. Para isso vamos anotar a
+classe Endereco com @Embeddable e a variável endereco em Restaurante vamos anotar com @Embedded.
+Também, definimos os nomes das colunas das variáveis de Endereco.
