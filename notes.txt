@@ -1,16 +1,13 @@
-Nesta aula criamos uma relação ManyToMany entre Restaurante e FormaPagamento, pois um restaurante poderá ter diversas
-formas de pagamento, e estas formas de pagamento podem estar relacionadas à diversos restaurantes.
-Lembrando que apesar de ser uma relação ManyToMany se trata de uma relação unidirecional, pois um restaurante possui
-formas de pagamento, mas formas de pagamento não possuem um ou mais restaurantes.
+Um ponto que deve ser restaltado quando fazemos uma alteração no nosso modelo de domínio é que da forma que estamos
+modelando nossa API, qualquer alteração no modelo de domínio pode alterar nossa representação do recurso na API. O ideal,
+porém mais trabalhoso, seria separarmos o modelo de domínio do modelo de representação de recurso, isso será feito em
+uma aula mais adiante.
 
-Para criamos essa relação vamos adicionar a anotação @ManyToMany na variável List<FormaPagamento> formasPagamento que
-criamos, vamos também adicionar a anotação @JoinTable e alterar algumas propriedades dessa anotação, sendo elas o nome
-da tabela que será criada e o nome das colunas criadas, ficando da seguinte forma:
+Outro ponto é que ao fazermos a relação ManyToMany de Restaurante com FormaPagamento, toda vez que consultamos um recurso
+de restaurante temos os meios de pagamento junto, isso pode gerar uma carga desnecessária para o servidor (no caso de
+um singleton resource não há grandes problemas, porém para um collection resource pode ser que sim), portanto,
+vamos anotar a variável formasPagamento com @JsonIgnore. Em aulas mais a frente verêmos como ficará com a separação do
+modelo de representação de recurso.
 
-@JoinTable(name = "restaurante_forma_pagamento",
-            joinColumns = @JoinColumn(name = "restaurante_id"),
-            inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
-
-Adicionamos também o seguinte SQL no arquivo import.sql, a fim de popular nosso banco de dados:
-
-INSERT INTO restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) VALUES (1,1), (1,2), (1,3), (2,3), (3,2), (3,3);
+Outro ponto é que ao atualizar um recurso, podemos querer que as formas de pagamento não sejam atualizadas, definimos
+isso como um dos parâmetros de ignoreProperties de BeanUtils.copyProperties() no nosso controller de Restaurantes.
