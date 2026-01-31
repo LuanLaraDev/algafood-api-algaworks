@@ -1,3 +1,15 @@
-Como não queremos exibir o endereço de um restaurante na nossa API, anotamos a variável endereco com @JsonIgnore. Também
-queremos que o endereço não seja atualizado por uma requisição do tipo PUT, por tanto, definimos no nosso controller que
-essa é uma propriedade que não será atualizada.
+Adicionamos na classe Restaurante duas variáveis do tipo LocalDateTime, sendo elas dataCadastro e dataAtualizacao.
+dataCadastro receberá um valor apenas na criação de um objeto e dataAtualizacao recebrerá na sua criação e na sua
+atualização.
+
+O hibernate nos fornece anotações específicas para o que precisamos. Anotamos dataCadastro e dataAtualizacao com
+@CreationTimestamp e @UpdateTimestamp respectivamente.
+
+Também definimos que as colunas no banco não podem ser nulas e definimos o tipo datetime (apenas para não ter
+digítos extras, pois por padrão seria criado uma coluna do tipo datetime(6)).
+
+Também removemos a variável dataCadstro da atualualização de recursos.
+
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro) VALUES (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) VALUES (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
+INSERT INTO restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) VALUES (3, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp);
