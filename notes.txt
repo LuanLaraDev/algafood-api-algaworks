@@ -1,1 +1,10 @@
-Nesta aula o desafio é mapear a relação ManyToMany entre as entidades Grupo e Usuario
+O Eager Loading é uma estratégia de carregamento antecipada.
+Mesmo que a representação de um recurso não dependa de uma parte do objeto que o compõe ou que não precisemos dessa
+parte em nenhum outro ponto, ele pode acabar sendo requisitado ao banco.
+
+Vale observar que a forma que a requisição é feita depende de, por exemplo, se estamos requisitanto um singleton ou uma
+collection. Isso impacta por exemplo no número de joins que ocorrerão.
+
+Toda relação com o final ToOne é uma estratégia que por padrão é Eager Loading.
+
+Quando uma variável não pode receber nulo, é feito um inner join, já quando pode receber nulo, é feito um left join.
