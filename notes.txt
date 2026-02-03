@@ -1,11 +1,8 @@
-Para alternarmos uma estratégia para Lazy Loading temos apenas que definir isso na anotação.
+Para alternarmos uma estratégia para Eager Loading temos apenas que definir isso na anotação.
 
-@ManyToOne(fetch = FetchType.LAZY)
+@ManyToMany(fetch = FetchType.EAGER)
 
-Entretanto, quando usamos a estratégia Lazy Loading, é criado um proxy da classe em questão (uma subclasse da classe),
-e ao tentarmos serializar uma variável com a estratégia Lazy Loading, a propriedade "hibernateLazyInitializer" tentará
-ser inicializada junto e teremos um erro sendo lançado. Para isso usamos a anotação:
+Simples assim, agora quanto é feita uma requisião de Restaurante, todas as formas de pagamento são buscadas junto,
+independente de serem usadas ou não.
 
-@JsonIgnoreProperties("hibernateLazyInitializer")
-
-Essa anotação permite que não serializaemos uma ou mais propriedades da instância atribuída à variável.
+Vale ressaltar que isso dificilmente vai ser útil.
