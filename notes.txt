@@ -1,3 +1,9 @@
-Em produção não devemos deixar o Scheme Generation atuar, pois não é uma boa prática e pode levar à diversos probelmas.
+Uma ferramenta de versionamento de schemes de banco de dados funciona nos ajudando a gerenciar versões de schema
+incrementais, ou seja, cada versão é incremental. Para termos a versão 3 de um schema, por exemplo, temos que executar
+o script da versão 1 e da 2 antes. Nenhum script de versão pode ser alterado para alterarmos o schema. Se quisermos
+alterar o schema devemos criar um novo script de migration.
 
-O correto é utilizar de migrations.
+Isso é extremamente útil, pois garante que os bancos de produção e de desenvolvimento estajam no mesmo estado.
+Podemos desenvolver nossa aplicação sem nos preocupar que o banco fique inconsistênte devido à versão.
+
+A ferramenta que irá nos auxiliar nisso é a Flyway.
