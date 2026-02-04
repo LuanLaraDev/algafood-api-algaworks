@@ -1,2 +1,7 @@
-Por estarmos utilizando a dependência do spring-boot-starter-data-jpa, estamos utilizando o Hikari, uma dependência
-transitiva de gerenciamento de pool de conexões.
+Podemos alterar algumas propriedades do hikari no arquivo application.properties. Normalmente o padrão já funciona bem.
+
+spring.datasource.hikari.maximum-pool-size=5   #Define no número máximo de conexões simultâneas
+spring.datasource.hikari.minimum-idle=3   #Define no número mínimo de conexões simultâneas
+spring.datasource.hikari.idle-timeout=10000   #Define o tempo de desconexão das conexões excedentes
+
+Vale observar que o número máximo de conexões sempre se sobrepõe.
