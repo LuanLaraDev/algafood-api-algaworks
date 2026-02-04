@@ -1,7 +1,3 @@
-Podemos alterar algumas propriedades do hikari no arquivo application.properties. Normalmente o padrão já funciona bem.
+Em produção não devemos deixar o Scheme Generation atuar, pois não é uma boa prática e pode levar à diversos probelmas.
 
-spring.datasource.hikari.maximum-pool-size=5   #Define no número máximo de conexões simultâneas
-spring.datasource.hikari.minimum-idle=3   #Define no número mínimo de conexões simultâneas
-spring.datasource.hikari.idle-timeout=10000   #Define o tempo de desconexão das conexões excedentes
-
-Vale observar que o número máximo de conexões sempre se sobrepõe.
+O correto é utilizar de migrations.
