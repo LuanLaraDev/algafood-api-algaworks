@@ -1,13 +1,1 @@
-O problema N+1 se trata do problema que acontece quando realizamos uma requisição que depende de outra requisição,
-podendo esta depender de mais uma e assim por diante.
-
-Para resolver o problema do N+1 podemos definir nós mesmo a consulta JPQL que será realizada pelo método.
-
-Para isso vamos adicionar na interface RestauranteRepository o método findAll() e anota-lo com:
-
-@Query("from Restaurante r join fetch r.cozinha left join fetch r.formasPagamento")
-
-O fetch é apenas obrigatório colocar nas variáveis de Lazy Loading, porém podemos colocar em todos os pontos, apenas
-para padronizar e facilitar nossa vida.
-
-Definimos o left join para formasPagamento, pois formasPagamento pode conter valores nulos.
+Este commit marca o início do módulo de Pool de conexões de Flayway
