@@ -1,1 +1,15 @@
-Este commit marca o início do módulo de Pool de conexões de Flayway
+Pool de conexões, nada mais é do que um conjunto de conexões que são mantidas abertas e são utilizadas apenas quando
+necessário, não necessitando ser encerrada e aberta à cada requisição a ser feita ao banco.
+
+O funcionamento é simples, ao iniciarmos a applicação, um número mínimo de conexões com o banco de dados é aberta,
+estas se mantem no estádo idle, até que uma requisição seja feita. Sempre que uma requisição é feita, será verificado
+(por algum componente de software) se há conexões em idle, caso haja, a requisição será feita em alguma desta conexões.
+
+Caso não haja conexões em idle, será verificado se o número de conexões abertas é menor do que o máximo estipulado.
+Se sim, ele abre mais conexões para atender as requisições.
+
+Se houver mais requisições do que o limite de conexões estabelecido, as requisições excedentes entram numa fila
+aguardando alguma conexão ficar em estado idle para ser atendida.
+
+As conexões que são criadas além do número mínimo normalmente são mantidas durante um tempo determinado, para que caso
+aconteça uma grande quantidade de requisições em um espaço curto de tempo não seja necessário reabrir as conexões.
