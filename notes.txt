@@ -1,11 +1,19 @@
-Para popularmos nossas tabelas podemos criar um arquivo de nome afterMigrate.sql dentro da pasta de migrations ou criamos
-uma pasta customizada e definimos isso com a seguinte propriedade no arquivo application.properties:
+Podemos reparar migrações apenas deletando a linha da tabela de migrations que possui problema, dessa forma a migration
+será executada novamente para que possamos reparar o erro.
+Vale observar que mesmo uma migration tenha problemas, pode acabar alterando o banco, então talvez seja necessário
+reparar manualmente.
 
-spring.flyway.locations=classpath:db/migration,classpath:db/testdata
+Caso não tenhamos acesso ao banco para remover a linha da tabela de migrations podemos fazer isso por meio do maven.
 
-Vale ressaltar que é importante remover os dados já existentes para popular nossas tabelas para evitar conflito.
+Primeiramente criamos um arquivo flyway.properties dentro da pasta resources. Depois definimos as seguintes propriedades:
 
-Para isso antes de remover os dados desativamos a checagem de foreign keys, removemos os dados e reativamos a checagem
-das foreing keys.
+flyway.url=url_do_banco
+flyway.user=usuario_do_banco
+flyway.password=senha_do_usuario_do_banco
 
-Após isso também resetamos a contagem do auto increment das tabelas para 1 e aí sim podemos fazer a inserção dos dados.
+Em seguida podemos executar o seguite comando no terminal:
+
+./mvnw flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
+
+Com isso a migration problemática será desfeita e podemos executar nossa aplicação novamente, assim executando a
+migration corrigida.
