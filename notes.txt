@@ -1,16 +1,12 @@
-Nesta aula criamos a V003 da migration.
+Se quisermos obter o schema que é gerado automaticamente mas sem executa-lo, podemos adicionar as seguintes propriedades
+no application.properties:
 
-Pode acontecer de termos migrations mais complexas, incluindo a necessidade de mover dados de uma tabela para outra.
-Isso é o que veremos nessa aula.
+spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
+spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=src/main/resources/ddl.sql
 
-Se quisermos salvar um estado atual do banco, podemos fazer o dump do banco.
+Isso fará com que um arquivo .sql seja criado no caminho definido.
 
-Dump de banco de dados
+Assim podemos obter um sql de criação de schema de forma facilitada, porém sempre temos que analisar o sql gerado e
+corrigir quando necessário.
 
-Para fazer um dump (backup dos dados) do database "algafood" no MySQL, use o seguinte comando:
-
-mysqldump --host localhost --user root --password --databases algafood > dump.sql
-
-Para criar o database "algafood" a partir do dump, execute o comando:
-
-mysql --host localhost --user root --password < dump.sql
+Nesta aula também criamos a V004 da nossa migration.
