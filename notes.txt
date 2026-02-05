@@ -1,12 +1,11 @@
-Se quisermos obter o schema que é gerado automaticamente mas sem executa-lo, podemos adicionar as seguintes propriedades
-no application.properties:
+Para popularmos nossas tabelas podemos criar um arquivo de nome afterMigrate.sql dentro da pasta de migrations ou criamos
+uma pasta customizada e definimos isso com a seguinte propriedade no arquivo application.properties:
 
-spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create
-spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=src/main/resources/ddl.sql
+spring.flyway.locations=classpath:db/migration,classpath:db/testdata
 
-Isso fará com que um arquivo .sql seja criado no caminho definido.
+Vale ressaltar que é importante remover os dados já existentes para popular nossas tabelas para evitar conflito.
 
-Assim podemos obter um sql de criação de schema de forma facilitada, porém sempre temos que analisar o sql gerado e
-corrigir quando necessário.
+Para isso antes de remover os dados desativamos a checagem de foreign keys, removemos os dados e reativamos a checagem
+das foreing keys.
 
-Nesta aula também criamos a V004 da nossa migration.
+Após isso também resetamos a contagem do auto increment das tabelas para 1 e aí sim podemos fazer a inserção dos dados.
