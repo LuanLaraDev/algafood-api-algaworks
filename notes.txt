@@ -1,3 +1,6 @@
-Erros são invitáveis, tanto por parte dos desenvolvedores quanto dos consumidores. Para isso é importante que tratemos os
-erros para que retornemos os status corretos e as mensagens de erro corretas, idealmente até mesmo informando como
-corrigir uma requisição em caso de erro do consumidor.
+Podemos anotar nossas exceptions com @ResponseStatus(), assim quando uma exceção é lançada caso ela ocorra e não seja
+capturada vamos ter como status o que foi definido na anotação da exceção.
+
+Adicionamos as anotações em EntidadeEmUsoException e em EntidadeNaoEncontradaException.
+
+Alteramos os método remover em CozinhaController para que não capture mais as exceções.
