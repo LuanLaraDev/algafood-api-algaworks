@@ -1,1 +1,3 @@
-Este commit marca o início do módulo de Tratamento e modelagem de erros da API
+Erros são invitáveis, tanto por parte dos desenvolvedores quanto dos consumidores. Para isso é importante que tratemos os
+erros para que retornemos os status corretos e as mensagens de erro corretas, idealmente até mesmo informando como
+corrigir uma requisição em caso de erro do consumidor.
