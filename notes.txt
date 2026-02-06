@@ -1,11 +1,14 @@
-Podemos ao invés de lançar Exceções customizadas com anotações de @ResponseStatus() lançar a exceção
-ResponseStatusException.
+Podemos também estender a exceção ResponseStatusException. A vantagem disso é que podemos customizar o Response Status
+diretamente no lançamento da exception.
 
-Poderiamos lançar essa exceção diretamente na classe CadastroCozinhaService, porém não é uma boa prática, pois não
-queremos vincular a classe de serviço diretamente com a API. Para isso, podemos capturar a exceção que é lançada pela
-classe de CadastroCozinhaService na nossa classe CozinhaController e relançar como uma ResponseStatusException.
+Vale observar que definir um ResponseStatus diretamente na exception não é o ideal, pois não estamos fazendo a melhor
+separação entre uma classe de domínio e as requisições http.
 
-Lembrando que desta forma, assim como na aula anterior não conseguimos customizar o corpo da resposta.
+Desta forma, toda vez que lançamos uma exceção customizada desse tipo, ela também vai ser uma ResponseStatusException,
+portanto não vamos precisar captura-las no nosso controller, pois caso ocorra já será retornado um ResponseStatus.
 
-Vale observar que faz mais sentido o uso dessa exceção quando não queremos ter que criar uma exceção customizada, seja
-por não fazer sentido ou por falta de tempo.
+Porém temos que lembrar que isso abre a possibilidade de alguém definir um status dentro de uma classe de serviço, o
+que não é adequado.
+
+Uma ventagem que podemos mencionar também é que com uma exceção customizada conseguimos definir diferentes
+ResponseStatus.
