@@ -1,14 +1,6 @@
-Podemos também estender a exceção ResponseStatusException. A vantagem disso é que podemos customizar o Response Status
-diretamente no lançamento da exception.
+Ao definir um ResponseStatus por meio da exceção podemos simplificar bastante nosso código.
 
-Vale observar que definir um ResponseStatus diretamente na exception não é o ideal, pois não estamos fazendo a melhor
-separação entre uma classe de domínio e as requisições http.
+Podemos no nosso controller ter menos verificações e menos de catchs, pois caso uma exceção ocorra não precisamos
+definir um response status.
 
-Desta forma, toda vez que lançamos uma exceção customizada desse tipo, ela também vai ser uma ResponseStatusException,
-portanto não vamos precisar captura-las no nosso controller, pois caso ocorra já será retornado um ResponseStatus.
-
-Porém temos que lembrar que isso abre a possibilidade de alguém definir um status dentro de uma classe de serviço, o
-que não é adequado.
-
-Uma ventagem que podemos mencionar também é que com uma exceção customizada conseguimos definir diferentes
-ResponseStatus.
+Podemos ver como nosso código fica mais simples observando as classes CozinhaController e CadastroCozinhaService.
