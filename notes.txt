@@ -1,6 +1,11 @@
-Podemos anotar nossas exceptions com @ResponseStatus(), assim quando uma exceção é lançada caso ela ocorra e não seja
-capturada vamos ter como status o que foi definido na anotação da exceção.
+Podemos ao invés de lançar Exceções customizadas com anotações de @ResponseStatus() lançar a exceção
+ResponseStatusException.
 
-Adicionamos as anotações em EntidadeEmUsoException e em EntidadeNaoEncontradaException.
+Poderiamos lançar essa exceção diretamente na classe CadastroCozinhaService, porém não é uma boa prática, pois não
+queremos vincular a classe de serviço diretamente com a API. Para isso, podemos capturar a exceção que é lançada pela
+classe de CadastroCozinhaService na nossa classe CozinhaController e relançar como uma ResponseStatusException.
 
-Alteramos os método remover em CozinhaController para que não capture mais as exceções.
+Lembrando que desta forma, assim como na aula anterior não conseguimos customizar o corpo da resposta.
+
+Vale observar que faz mais sentido o uso dessa exceção quando não queremos ter que criar uma exceção customizada, seja
+por não fazer sentido ou por falta de tempo.
