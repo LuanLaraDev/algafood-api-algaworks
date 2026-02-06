@@ -1,6 +1,8 @@
-Ao definir um ResponseStatus por meio da exceção podemos simplificar bastante nosso código.
+Neste desafio vamos refatorar as classes de serviço e controller de Estado, Cidade e Restaurante.
 
-Podemos no nosso controller ter menos verificações e menos de catchs, pois caso uma exceção ocorra não precisamos
-definir um response status.
+Nesta refatoração não vamos nos preocupar com o problema de uma requisição de criação, atualização ou patch de
+Restaurante com um id de cozinha inexistente, pois o correto é termos um bad request como response status e temos um
+not found como resposta, sendo que o recurso existe e teve um erro de requisição. O mesmo se aplica criação,
+atualização ou patch de uma Cidade com um id de estado inexistente.
 
-Podemos ver como nosso código fica mais simples observando as classes CozinhaController e CadastroCozinhaService.
+Em uma aula mais a frente vamos corrigor isso.
