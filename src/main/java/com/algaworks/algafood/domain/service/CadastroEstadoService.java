@@ -37,5 +37,4 @@ public class CadastroEstadoService {
         return estadoRepository.findById(estadoId).orElseThrow(() ->
                 new EntidadeNaoEncontradaException(String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
     }
-
 }

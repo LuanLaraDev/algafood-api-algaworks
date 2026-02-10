@@ -1,3 +1,5 @@
-Um impacto ocasionado pela refatoração feita na aula anterior é o status code 404 em recursos que existem, mas que tem
-problemas no corpo da requisição, indicando incorretamente a ausência de um recurso.
-Isso acontece, por exemplo, quando tentamos atualizar um Restaurante com o id de uma Cozinha que não existe.
+Para resolver o problema do Status 404 em recursos que existem mas tem problemas no corpo da requisição, podemos
+criar uma exceção customizada para exceções de negócio, a NegocioException, onde a exceção lançará o status 400.
+
+Caso aconteça uma exceção do tipo EntidadeNaoEncontradaException na tentativa de salvar um recurso, relançaremos como
+uma NegocioException. Vide as classes CidadeController e RestauranteController.

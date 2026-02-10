@@ -27,10 +27,6 @@ public class CadastroCidadeService {
 
         Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 
-//        Estado estado = estadoRepository.findById(estadoId)
-//                .orElseThrow(() -> new EntidadeNaoEncontradaException(
-//                        String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
-
         cidade.setEstado(estado);
         return cidadeRepository.save(cidade);
     }

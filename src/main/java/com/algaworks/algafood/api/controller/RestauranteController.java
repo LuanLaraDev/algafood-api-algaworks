@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
@@ -8,14 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -32,59 +31,20 @@ public class RestauranteController {
         return restauranteRepository.findAll();
     }
 
-//    @GetMapping("/{restauranteId}")
-//    public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
-//        Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
-//
-//        if (restaurante.isPresent()) {
-//            return ResponseEntity.ok(restaurante.get());
-//        }
-//
-//        return ResponseEntity.notFound().build();
-//    }
-
     @GetMapping("/{restauranteId}")
     public Restaurante buscar(@PathVariable Long restauranteId) {
         return cadastroRestaurante.buscarOuFalhar(restauranteId);
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
-//        try {
-//            restaurante = cadastroRestaurante.salvar(restaurante);
-//
-//            return ResponseEntity.status(HttpStatus.CREATED).body(restaurante);
-//
-//        } catch (EntidadeNaoEncontradaException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
-        return cadastroRestaurante.salvar(restaurante);
+        try {
+            return cadastroRestaurante.salvar(restaurante);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
-
-//    @PutMapping("/{restauranteId}")
-//    public ResponseEntity<?> atualizar(@RequestBody Restaurante restaurante, @PathVariable Long restauranteId) {
-//
-//        try {
-//            Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
-//
-//            if (restauranteAtual.isPresent()) {
-//                BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id", "formasPagamento",
-//                        "endereco", "dataCadastro", "produtos");
-//                Restaurante restauranteSalvo = cadastroRestaurante.salvar(restauranteAtual.get());
-//                return ResponseEntity.ok(restauranteSalvo);
-//            }
-//            return ResponseEntity.notFound().build();
-//
-//        } catch (EntidadeNaoEncontradaException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//
-//    }
 
     @PutMapping("/{restauranteId}")
     public Restaurante atualizar(@RequestBody Restaurante restaurante, @PathVariable Long restauranteId) {
@@ -94,7 +54,11 @@ public class RestauranteController {
         BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formasPagamento",
                 "endereco", "dataCadastro", "produtos");
 
-        return cadastroRestaurante.salvar(restauranteAtual);
+        try {
+            return cadastroRestaurante.salvar(restauranteAtual);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 
     @PatchMapping("/{restauranteId}")
@@ -123,5 +87,4 @@ public class RestauranteController {
             ReflectionUtils.setField(field, restauranteDestino, novoValor);
         });
     }
-
 }

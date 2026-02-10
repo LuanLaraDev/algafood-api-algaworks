@@ -1,19 +1,16 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cidades")
@@ -25,15 +22,6 @@ public class CidadeController {
     @Autowired
     private CadastroCidadeService cadastroCidade;
 
-//    @GetMapping("/{cidadeId}")
-//    public ResponseEntity<Cidade> buscar(@PathVariable Long cidadeId) {
-//        Optional<Cidade> cidade = cidadeRepository.findById(cidadeId);
-//        if (cidade.isPresent()) {
-//            return ResponseEntity.ok(cidade.get());
-//        }
-//        return ResponseEntity.notFound().build();
-//    }
-
     @GetMapping("/{cidadeId}")
     public Cidade buscar(@PathVariable Long cidadeId) {
         return cadastroCidade.buscarOuFalhar(cidadeId);
@@ -44,33 +32,15 @@ public class CidadeController {
         return cidadeRepository.findAll();
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
-//        try {
-//            cidade = cadastroCidade.salvar(cidade);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
-//        } catch (EntidadeNaoEncontradaException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cidade adicionar(@RequestBody Cidade cidade) {
-        return cadastroCidade.salvar(cidade);
+        try {
+            return cadastroCidade.salvar(cidade);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
-
-//    @DeleteMapping("/{cidadeId}")
-//    public ResponseEntity<?> remover(@PathVariable Long cidadeId) {
-//        try {
-//            cadastroCidade.excluir(cidadeId);
-//            return ResponseEntity.noContent().build();
-//        } catch (EntidadeNaoEncontradaException e) {
-//            return ResponseEntity.notFound().build();
-//        } catch (EntidadeEmUsoException e) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-//        }
-//    }
 
     @DeleteMapping("/{cidadeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -78,29 +48,15 @@ public class CidadeController {
         cadastroCidade.excluir(cidadeId);
     }
 
-//    @PutMapping("/{cidadeId}")
-//    public ResponseEntity<?> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
-//        try {
-//            Cidade cidadeAtual = cidadeRepository.findById(cidadeId).orElse(null);
-//
-//            if (cidadeAtual != null) {
-//                BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-//                cidadeAtual = cadastroCidade.salvar(cidadeAtual);
-//                return ResponseEntity.ok(cidadeAtual);
-//            }
-//
-//            return ResponseEntity.notFound().build();
-//        } catch (EntidadeNaoEncontradaException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
 
         Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
         BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-        return cadastroCidade.salvar(cidadeAtual);
-
+        try {
+            return cadastroCidade.salvar(cidadeAtual);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
     }
 }
