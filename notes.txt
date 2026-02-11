@@ -1,1 +1,13 @@
-O desafio é usar a NegocioException no RestauranteController, acabei fazendo isso no commit anterior
+Nesta aula vamos aumentar a granularidade das exceções.
+
+Vamos criar a EstadoNaoEncontradoException, que vai herdar EntidadeNaoEncontradaException. Vamos também criar uma
+sobrecarga do construtor, onde a mensagem de erro para um estado inexistente vai estar e vai deixar de ficar
+no CadastroEstadoService.
+
+Nossa classe CadastroEstadoService vai passar a lançar EstadoNaoEncontradoException no lugar de
+EntidadeNaoEncontradaException. Nossa classe CidadeController vai passar a capturar EstadoNaoEncontradoException e
+relançar como NegocioException (assim podemos colocar nosso código de atualização de cidade completamente dentro do try,
+pois não estamos mais capturando uma exceção tão genérica quanto EntidadeEmUsoException).
+
+Vamos também fazer com que NegocioException possa receber uma causa e também vamos fazer com que
+EntidadeNaoEncontradaException herde NegocioException.
