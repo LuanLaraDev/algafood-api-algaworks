@@ -1,5 +1,6 @@
-O desafio dessa aula é lançar exceções de granulariade mais fina nas classes CadastroCidadeService,
-CadastroCozinhaService e CadastroRestauranteService.
+Podemos tratar as exceções a nível de controlador, utilizando da anotação @ExceptionHandler().
 
-Vamos também tornar a EntidadeNaoEncontradaException uma classe abstrata. Não vamos mais lançar exceções desse tipo,
-apenas capturar quando necessário.
+Criamos uma classe que representará um problema.
+
+Criamos um método no controlador de Cidade que irá retornar um ResponseBody<?>. Esse ResponseBody terá como corpo a
+classe Problema que criamos.
