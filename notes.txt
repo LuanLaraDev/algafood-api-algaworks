@@ -1,13 +1,5 @@
-Nesta aula vamos aumentar a granularidade das exceções.
+O desafio dessa aula é lançar exceções de granulariade mais fina nas classes CadastroCidadeService,
+CadastroCozinhaService e CadastroRestauranteService.
 
-Vamos criar a EstadoNaoEncontradoException, que vai herdar EntidadeNaoEncontradaException. Vamos também criar uma
-sobrecarga do construtor, onde a mensagem de erro para um estado inexistente vai estar e vai deixar de ficar
-no CadastroEstadoService.
-
-Nossa classe CadastroEstadoService vai passar a lançar EstadoNaoEncontradoException no lugar de
-EntidadeNaoEncontradaException. Nossa classe CidadeController vai passar a capturar EstadoNaoEncontradoException e
-relançar como NegocioException (assim podemos colocar nosso código de atualização de cidade completamente dentro do try,
-pois não estamos mais capturando uma exceção tão genérica quanto EntidadeEmUsoException).
-
-Vamos também fazer com que NegocioException possa receber uma causa e também vamos fazer com que
-EntidadeNaoEncontradaException herde NegocioException.
+Vamos também tornar a EntidadeNaoEncontradaException uma classe abstrata. Não vamos mais lançar exceções desse tipo,
+apenas capturar quando necessário.
