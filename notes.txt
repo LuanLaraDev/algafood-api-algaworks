@@ -1,5 +1,2 @@
-Podemos também tratar as exceções globalmente.
-Para isso criamos uma classe que irá tratar as exceções e anotamos essa classe com @ControllerAdvice. E basta adicionar
-os métodos de tratamento de exceção.
-
-Uma grande vantagem é poder tratar exceções que não fomos nós que criamos.
+Nesta aula o desafio é implementar o handler pra exceção de EntidadeEmUsoException e refatorar as exceções para não
+terem mais ResponseStatus relacionados diretamente com elas, mas sim por meio dos handlers de exceções.
