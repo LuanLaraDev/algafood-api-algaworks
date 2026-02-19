@@ -1,2 +1,10 @@
-Nesta aula customizamos o corpo da resposta. Fizemos um overrride da handleExceptionInternal() para que usemos como
-padrão de resposta.
+Nesta aula vamos padronizar o formato de problemas no corpo de respostas utilizando a RFC 7807.
+
+Para isso, vamos começar alterando a classe Problema para  que esteja de acordo com a RFC 7807.
+
+Após isso vamos criar o método createProblemBuilder() na classe ApiExceptionHandler para facilitar a criação das
+instâncias de problema.
+
+Criamos também o Enum ProblemType para representar diferentes problemas padrão.
+
+A partir disso refatoramos a classe ApiExceptionHandler.
