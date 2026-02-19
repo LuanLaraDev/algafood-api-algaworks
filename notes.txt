@@ -1,2 +1,6 @@
-Nesta aula o desafio é implementar o handler pra exceção de EntidadeEmUsoException e refatorar as exceções para não
-terem mais ResponseStatus relacionados diretamente com elas, mas sim por meio dos handlers de exceções.
+Para criamos um exception handler global, vamos começar estedendo a classe ResponseEntityExceptionHandler na nossa
+ApiExceptionHandler.
+
+ResponseEntityExceptionHandler é uma classe abstrata que lida com os handlers de exceções internas do Spring.
+
+Entretanto, ainda não vamos ter uma representação customizada das respostas, veremos isso nas próximas aulas.
