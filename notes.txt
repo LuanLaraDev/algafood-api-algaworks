@@ -1,6 +1,2 @@
-Para criamos um exception handler global, vamos começar estedendo a classe ResponseEntityExceptionHandler na nossa
-ApiExceptionHandler.
-
-ResponseEntityExceptionHandler é uma classe abstrata que lida com os handlers de exceções internas do Spring.
-
-Entretanto, ainda não vamos ter uma representação customizada das respostas, veremos isso nas próximas aulas.
+Nesta aula customizamos o corpo da resposta. Fizemos um overrride da handleExceptionInternal() para que usemos como
+padrão de resposta.
