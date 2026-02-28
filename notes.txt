@@ -1,4 +1,16 @@
-Nesta aula vamos vamos customizar um exception handler. Vamos melhorar a resposta de uma requisição com problema no
-seu corpo.
+Nesta aula vamos tratar a exceção InvalidFormatException. Porém esta exceção, diferentemente das outras que tratamos até
+agora, está não é lançada como o erro da requisição, mas sim como a requisição raiz do erro da requisição, portanto
+precisamos pegar a raiz.
 
-Para isso fazemos um override do método handleHttpMessageNotReadable e customizamos sua resposta.
+Para isso adicionamos a dependência do apache commons lang:
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+Com isso podemos pegar a causa raiz da exceção HttpMessageNotReadableException e caso seja uma InvalidFormatException
+iremos trata-la.
+
+Para ver melhor como isso é feito veja os métodos "handleHttpMessageNotReadable" e "handleInvalidFormatException" da
+classe ApiExceptionHandler.
