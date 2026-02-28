@@ -1,2 +1,4 @@
-Nesta aula o desafio é alterar o formato de problemas no corpo de respostas nos handles de NegocioException e de
-EntidadeEmUsoException.
+Nesta aula vamos vamos customizar um exception handler. Vamos melhorar a resposta de uma requisição com problema no
+seu corpo.
+
+Para isso fazemos um override do método handleHttpMessageNotReadable e customizamos sua resposta.
