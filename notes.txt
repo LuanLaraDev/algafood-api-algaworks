@@ -1,16 +1,9 @@
-Nesta aula vamos tratar a exceção InvalidFormatException. Porém esta exceção, diferentemente das outras que tratamos até
-agora, está não é lançada como o erro da requisição, mas sim como a requisição raiz do erro da requisição, portanto
-precisamos pegar a raiz.
+Nesta aula vamos habilitar os erros de desserialização de propriedades inexistentes ou ignoradas (com @JsonIgnore).
 
-Para isso adicionamos a dependência do apache commons lang:
+Para isso adicionamos as seguintes propriedades no arquivo application.properties
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-		</dependency>
+spring.jackson.deserialization.fail-on-unknown-properties=true
+spring.jackson.deserialization.fail-on-ignored-properties=true
 
-Com isso podemos pegar a causa raiz da exceção HttpMessageNotReadableException e caso seja uma InvalidFormatException
-iremos trata-la.
-
-Para ver melhor como isso é feito veja os métodos "handleHttpMessageNotReadable" e "handleInvalidFormatException" da
-classe ApiExceptionHandler.
+Vale ressaltar que acabei detalhando mais os handlers do que o necessário para a aula, por isso
+comentei o trecho do código.
