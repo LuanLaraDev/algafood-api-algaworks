@@ -3,6 +3,8 @@ package com.algaworks.algafood.domain.exceptionHandler;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -29,13 +32,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         if (rootCause instanceof InvalidFormatException) {
             return handleInvalidFormatException((InvalidFormatException) rootCause, headers, status, request);
-        }
-
-        /*else if (rootCause instanceof UnrecognizedPropertyException) {
+        } else if (rootCause instanceof UnrecognizedPropertyException) {
             return handleUnrecognizedPropertyException((UnrecognizedPropertyException) rootCause, headers, status, request);
         } else if (rootCause instanceof IgnoredPropertyException) {
             return handleIgnoredPropertyException((IgnoredPropertyException) rootCause, headers, status, request);
-        }*/
+        }
 
         ProblemType problemType = ProblemType.MENSAGEM_IMCOMPREENSIVEL;
         String detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
@@ -45,44 +46,43 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
-    /*private ResponseEntity<Object> handleIgnoredPropertyException(
-            IgnoredPropertyException rootCause, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        String propriedade = rootCause.getPath().stream().map(path -> path.getFieldName()).collect(Collectors.joining("."));
+    private ResponseEntity<Object> handleIgnoredPropertyException(
+            IgnoredPropertyException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String propriedade = joinPath(ex.getPath());
 
         ProblemType problemType = ProblemType.MENSAGEM_IMCOMPREENSIVEL;
 
         String detail = String.format("A propriedade '%s' não deve ser passada nessa requisição", propriedade);
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
-        return handleExceptionInternal(rootCause, problem, headers, status, request);
+        return handleExceptionInternal(ex, problem, headers, status, request);
     }
 
     private ResponseEntity<Object> handleUnrecognizedPropertyException(
-            UnrecognizedPropertyException rootCause, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        String propriedade = rootCause.getPath().stream().map(path -> path.getFieldName()).collect(Collectors.joining("."));
+            UnrecognizedPropertyException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String propriedade = joinPath(ex.getPath());
 
         ProblemType problemType = ProblemType.MENSAGEM_IMCOMPREENSIVEL;
 
         String detail = String.format("A propriedade '%s' não existe", propriedade);
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
-        return handleExceptionInternal(rootCause, problem, headers, status, request);
-    }*/
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
 
     private ResponseEntity<Object> handleInvalidFormatException(
-            InvalidFormatException rootCause, HttpHeaders headers, HttpStatus status, WebRequest request) {
+            InvalidFormatException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        String propriedade = rootCause.getPath().stream().map(path -> path.getFieldName()).collect(Collectors.joining("."));
-
+        String propriedade = joinPath(ex.getPath());
 
         ProblemType problemType = ProblemType.MENSAGEM_IMCOMPREENSIVEL;
 
         String detail = String.format("A propriedade '%s' recebeu o valor '%s', que é um tipo inválido. " +
                 "Corrija e informe um valor compatível com o tipo %s.",
-                propriedade, rootCause.getValue(), rootCause.getTargetType().getSimpleName());
+                propriedade, ex.getValue(), ex.getTargetType().getSimpleName());
         
         Problem problem = createProblemBuilder(status, problemType, detail).build();
-        return handleExceptionInternal(rootCause, problem, headers, status, request);
+        return handleExceptionInternal(ex, problem, headers, status, request);
     }
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
@@ -135,7 +135,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
+    private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
         return Problem.builder().status(status.value()).type(problemType.getUri()).title(problemType.getTitle()).detail(detail);
+    }
+
+    private String joinPath(List<Reference> references) {
+        return references.stream().map(path -> path.getFieldName()).collect(Collectors.joining("."));
     }
 }
