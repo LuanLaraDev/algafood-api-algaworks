@@ -1,29 +1,11 @@
-O desafio desta aula é criar os handles de PropertyBindingException.
-Podemos ser mais genéricos e trabalhar com PropertyBindingException apenas ou ser mais específicos e tratar as exceções
-UnrecognizedPropertyException e IgnoredPropertyException que são do tipo PropertyBindingException.
+Nesta aula vamos lançar a exceção adequada para o tratamento do Patch.
 
-No caso trabalhamos de forma mais específica, apesar da resolução do desafio ser mais genérica.
+Para isso configuramos o nosso ObjectMapper para falhar em propriedades ignoradas ou inexistentes.
 
-Primeiramente temos que criar o handle pra UnrecognizedPropertyException e IgnoredPropertyException, mas antes vamos
-criar o método joinPath para reduzir a duplicação de código ao obter o nome da propriedade que ocasionou a exceção.
+Após isso vamos capturar a exceção IllegalArgumentException, e relança-la como HttpMessageNotReadableException,
+entretanto vamos precisar de um HttpInputMessage para o construtor do HttpMessageNotReadableException.
 
-Após isso vamos fazer a verificação no handleHttpMessageNotReadable de se a exceção foi ocasionada por uma exceção do
-tipo UnrecognizedPropertyException ou IgnoredPropertyException para chamar seus devidos handles.
-
-Caso fossemos tratar de forma mais genérica, fica aqui o exemplo:
-
-    private ResponseEntity<Object> handlePropertyBindingException(PropertyBindingException ex,
-            HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        // Criei o método joinPath para reaproveitar em todos os métodos que precisam
-        // concatenar os nomes das propriedades (separando por ".")
-        String path = joinPath(ex.getPath());
-
-        ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
-        String detail = String.format("A propriedade '%s' não existe. "
-                + "Corrija ou remova essa propriedade e tente novamente.", path);
-
-        Problem problem = createProblemBuilder(status, problemType, detail).build();
-
-        return handleExceptionInternal(ex, problem, headers, status, request);
-    }
+Uma classe que implementa HttpInputMessage é a ServletServerHttpRequest, esta que para ser instanciada depende de um
+HttpServletRequest, que podemos obter adicionando o parâmetro no método do Patch, o Spring é responsável por injetar.
+E por meio disso podemos instânciar um ServletServerHttpRequest que nos permitirá lançar um
+HttpMessageNotReadableException.
