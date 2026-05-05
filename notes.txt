@@ -1,11 +1,20 @@
-Nesta aula vamos lançar a exceção adequada para o tratamento do Patch.
+Nesta desafio vamos tratar a exception de um parâmetro de URL inválido
 
-Para isso configuramos o nosso ObjectMapper para falhar em propriedades ignoradas ou inexistentes.
+1. MethodArgumentTypeMismatchException é um subtipo de TypeMismatchException
 
-Após isso vamos capturar a exceção IllegalArgumentException, e relança-la como HttpMessageNotReadableException,
-entretanto vamos precisar de um HttpInputMessage para o construtor do HttpMessageNotReadableException.
+2. ResponseEntityExceptionHandler já trata TypeMismatchException de forma mais abrangente
 
-Uma classe que implementa HttpInputMessage é a ServletServerHttpRequest, esta que para ser instanciada depende de um
-HttpServletRequest, que podemos obter adicionando o parâmetro no método do Patch, o Spring é responsável por injetar.
-E por meio disso podemos instânciar um ServletServerHttpRequest que nos permitirá lançar um
-HttpMessageNotReadableException.
+3. Então, especializamos o método handleTypeMismatch e verificamos se a exception
+é uma instância de MethodArgumentTypeMismatchException
+
+4. Se for, chamamos um método especialista em tratar esse tipo de exception
+
+5. Poderíamos fazer tudo dentro de handleTypeMismatch, mas preferi separar em outro método
+
+
+Também renomeamos os métodos do ApiExceptionHandler removendo todos os sufixos Exception dos handles.
+
+ProblemType problemType = ProblemType.PARAMETRO_INVALIDO;
+
+O parâmetro de URL '%s' recebeu o valor '%s', que é de um tipo inválido.
+Corrija e informe um valor compatível com o tipo %s.
