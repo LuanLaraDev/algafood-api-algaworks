@@ -1,13 +1,4 @@
-Neste desafio vamos tratar a exceção NoHandlerFoundException.
+O desafio da aula é tratar exceções que não são capturadas.
 
-Já existe um handle para esta exceção, o handleNoHandlerFoundException.
-
-Para que seja lançada a exceção NoHandlerFoundException devemos adicionar as propriedades no application.properties
-
-spring.mvc.throw-exception-if-no-handler-found=true
-spring.web.resources.add-mappings=false
-
-Vamos também customizar a resposta do método por meio de um override.
-
-O ProblemType ENTIDADE_NAO_ENCONTRADA passará a ser:
-RECURSO_NAO_ENCONTRADO("/recurso-nao-encontrado", "Recurso não encontrado");
+Pra isso criamos um ProblemType para representar um erro no sistema. Depois criamos um método na classe
+ApiExceptionHandler que será responsável por receber uma exceção do tipo Exception.
