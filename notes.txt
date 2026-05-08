@@ -1,4 +1,8 @@
-O desafio da aula é tratar exceções que não são capturadas.
+Nesta aula estendemos o formato da classe Problema para adicionar novas propriedades;
+Não estamos estendendo no sentido de herança, mas sim de aumentar.
 
-Pra isso criamos um ProblemType para representar um erro no sistema. Depois criamos um método na classe
-ApiExceptionHandler que será responsável por receber uma exceção do tipo Exception.
+Imagine que queremos ter uma mensagem específica para comunicar com o usuário final, que não contenha detalhes técnicos
+da nossa API. Podemos enviar uma mensagem para isso.
+
+Adicionamos a propriedade userMessage na classe Problem, a partir daí, quando julgarmos necessário podemos utilizar
+essa propriedade. O ideal é sempre termos a mensagem, mas dependendo do uso da API, não se faz necessário.
